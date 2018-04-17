@@ -3,7 +3,7 @@
 #az login 
 #echo please copy and paste the correct sub 
 #read $sub
-cd /usr/local
+
 
 az account set --subscription 928f4e7e-2c28-4063-a56e-6f1e6f2bb73c
 echo az account get-access-token
@@ -97,10 +97,15 @@ az keyvault set-policy --name $kvname --spn $sp_id \
 
     echo $rg
     echo $vmname
-   # sp_id=037a08c8-2811-4bd4-b2fd-ecf31c378dda 
-    #sp_password=3e2d9636-bf42-4fb3-91ed-da192a5003ac
+    
+    sp=$(echo $sp_id)  
+    pass=$(echo $sp_password)
 
-     az vm encryption enable --resource-group $rg --name $vmname --aad-client-id '$sp_id' --aad-client-secret '$sp_password' --key-encryption-keyvault $KEKV --key-encryption-key $KEKUri --disk-encryption-keyvault $KEKV --volume-type all --verbose
+    echo your appid is : $sp
+    echo your password is : $pass
+
+
+     az vm encryption enable --resource-group $rg --name $vmname --aad-client-id $sp --aad-client-secret $pass --key-encryption-keyvault $KEKV --key-encryption-key $KEKUri --disk-encryption-keyvault $KEKV --volume-type all --verbose
       # az vm show -g $rg -n $vmname
       # az vm encryption enable --resource-group $rg --name $vmname --aad-client-id 037a08c8-2811-4bd4-b2fd-ecf31c378dda --aad-client-secret 3e2d9636-bf42-4fb3-91ed-da192a5003ac --key-encryption-keyvault $KEKV --key-encryption-key $KEKUri --disk-encryption-keyvault $KEKV --volume-type all
 
